@@ -1,0 +1,14 @@
+transformers
+torch
+networkx
+matplotlib
+pandas
+wikipedia-api
+langchain
+langchain-community
+langgraph
+nltk
+gensim
+scikit-learn
+seaborn
+sentencepiece
