@@ -2,6 +2,7 @@ import wikipediaapi
 from transformers import T5ForConditionalGeneration, T5Tokenizer
 import torch
 import re
+import json
 
 def fetch_wikipedia_page(title):
     headers = {'User-Agent': "dockvis/1.0 (contact: bhatnagar007vidit@gmail.com)"}
@@ -25,24 +26,28 @@ def load_model():
     return model, tokenizer, device
 
 def extract_relevant_data(text):
-    print("Extracted Text:", text)
+    json_file_name = f"whole_extracted_text.json"
+    with open(json_file_name, 'w') as json_file:
+        json.dump(text, json_file, indent=4)
+    print(f"\033[93mExtracted data saved to {json_file_name}\033[0m")
+    
 
-    # Example regex patterns to extract dates, persons, and events
-    person_pattern = r"\b([A-Z][a-z]+(?: [A-Z][a-z]+)?)\b"  # Simple pattern for names
-    date_pattern = r"\b\d{1,2} [A-Za-z]+ \d{4}\b"  # Pattern for dates in "15 October 1542" format
-    event_pattern = r"\b(\w+ \w+)\b"  # Pattern for events (you may need a more specific pattern)
+   
+    person_pattern = r"\b([A-Z][a-z]+(?: [A-Z][a-z]+)?)\b"  
+    date_pattern = r"\b\d{1,2} [A-Za-z]+ \d{4}\b"  
+    event_pattern = r"\b(\w+ \w+)\b"  
 
     persons = re.findall(person_pattern, text)
     dates = re.findall(date_pattern, text)
     events = re.findall(event_pattern, text)
 
-    # Prepare extracted data
+   
     extracted_info = []
     for person in persons:
         for date in dates:
             extracted_info.append({
                 'person': person,
-                'event': 'Relevant Event Here',  # Replace with actual logic to determine the event
+                'event': 'Relevant Event Here', 
                 'date': date
             })
 
@@ -65,7 +70,6 @@ def main():
         extracted_data = extract_relevant_data(document)
         if extracted_data:
             print("Relevant data extracted:", extracted_data)
-            # You can build the knowledge graph here or return it to the caller
             return extracted_data
         else:
             print("No relevant data extracted.")

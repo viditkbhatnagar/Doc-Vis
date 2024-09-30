@@ -34,15 +34,17 @@ def find_key_players(G):
     return key_players
 
 
-def visualize_graph(G):
+def visualize_graph(G, title="Knowledge Graph"):
     plt.figure(figsize=(10, 6))
-    pos = nx.spring_layout(G)
+    pos = nx.spring_layout(G)  # Spring layout for positioning the nodes
     nx.draw_networkx_nodes(G, pos, node_size=700, node_color='skyblue')
     nx.draw_networkx_edges(G, pos, width=1.0, alpha=0.5)
     nx.draw_networkx_labels(G, pos, font_size=12, font_family='sans-serif')
-    plt.title("Knowledge Graph")
-    plt.axis('off')
+    
+    plt.title(title)  # Set dynamic title
+    plt.axis('off')  # Turn off axis
     plt.show()
+
 
 def plot_centrality(centrality_data):
     plt.figure(figsize=(12, 6))
