@@ -12,10 +12,11 @@ def plot_timeline(data):
     plt.plot(dates, [1] * len(dates), 'ro-')
     for i, event in enumerate(events):
         plt.text(dates[i], 1.02, event, rotation=45, ha='right', fontsize=8)
-    plt.title("Event Timeline")
+    plt.title(f"Event Timeline ({dates[0]} to {dates[-1]})")
     plt.xlabel("Date")
     plt.tight_layout()
     plt.show()
+
 
 def plot_person_relations(G):
     plt.figure(figsize=(12, 8))
