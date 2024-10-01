@@ -42,7 +42,6 @@ def extract_entities_with_transformer(text):
 
 def are_related(entity1, entity2):
     """Determines if two entities should be connected in the graph."""
-    # Example condition: entities are of the same type and appear within 100 characters of each other in the text
     if entity1['type'] == entity2['type'] and abs(entity1['start'] - entity2['start']) < 100:
         return True
     return False
@@ -52,7 +51,6 @@ def build_initial_graph(entities):
     """Construct a graph from extracted entities, connecting nodes based on shared attributes or defined relationships."""
     G = nx.Graph()
     for entity in entities:
-        # You might adjust the handling of 'date' to use 'year' or other modifications as needed
         year = extract_year(entity.get('date', ''))
         G.add_node(entity['text'], type=entity['type'], year=year, start=entity['start'], end=entity['end'])
 
