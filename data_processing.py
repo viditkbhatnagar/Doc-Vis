@@ -1,65 +1,57 @@
 import wikipediaapi
-import datetime
-import re
-import json
-from transformers import pipeline
+import torch
+from transformers import AutoTokenizer, AutoModelForTokenClassification
 import networkx as nx
+import json
 
-def extract_year(date_str):
-    """ Extracts the year from a date string. """
-    if not date_str:
-        return 'No year available'
-    try:
-        date = datetime.datetime.strptime(date_str, "%Y-%m-%d")
-        return str(date.year)
-    except ValueError:
-        # Try to extract just the year if the full date isn't present
-        match = re.search(r'\b(\d{4})\b', date_str)
-        if match:
-            return match.group(1)
-        return 'No year available'
+# Initialize the Qwen2-7B-Instruct model
+model_name = "Qwen/Qwen2-7B-Instruct"
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModelForTokenClassification.from_pretrained(model_name)
 
 def fetch_wikipedia_page(title):
-    """ Fetch the content of a Wikipedia page using a specified user agent. """
-    wiki = wikipediaapi.Wikipedia(language='en', user_agent='docvis/1.0 (bhatnagar007vidit@gmail.com)')
-    page = wiki.page(title)
-    if page.exists():
-        return page.text
-    else:
-        print("Page not found.")
-        return None
-
-def save_data(data, filename):
-    """ Save extracted data to a JSON file. """
-    with open(filename, 'w', encoding='utf-8') as f:
-        json.dump(data, f, indent=4)
+    """ Fetch the content of a Wikipedia page. """
+    wiki_wiki = wikipediaapi.Wikipedia(language='en', user_agent='docvis/1.0 (your_email@example.com)')
+    page = wiki_wiki.page(title)
+    return page.text if page.exists() else None
 
 def extract_entities_with_transformer(text):
-    """ Extract entities from text using a transformer-based NER model. """
-    ner_pipeline = pipeline("ner", model="dbmdz/bert-large-cased-finetuned-conll03-english", aggregation_strategy="simple")
-    entities = ner_pipeline(text)
-    return [{'text': entity['word'], 'type': entity['entity_group'], 'start': entity['start'], 'end': entity['end'], 'date': extract_year(entity['word'])} for entity in entities]
-
-def are_related(entity1, entity2):
-    """Determines if two entities should be connected in the graph."""
-    if entity1['type'] == entity2['type'] and abs(entity1['start'] - entity2['start']) < 100:
-        return True
-    return False
-
+    """ Extract entities from text using the Qwen2-7B-Instruct model. """
+    inputs = tokenizer(text, return_tensors="pt", truncation=True, padding=True)
+    outputs = model(**inputs)
+    predictions = torch.argmax(outputs.logits, dim=-1)
+    entities = []
+    for idx, label_id in enumerate(predictions[0]):
+        label = model.config.id2label[label_id.item()]
+        word = tokenizer.decode([inputs.input_ids[0][idx]])
+        entities.append({'text': word, 'label': label})
+    return entities
 
 def build_initial_graph(entities):
-    """Construct a graph from extracted entities, connecting nodes based on shared attributes or defined relationships."""
+    """ Build a graph from the entities extracted. """
     G = nx.Graph()
     for entity in entities:
-        year = extract_year(entity.get('date', ''))
-        G.add_node(entity['text'], type=entity['type'], year=year, start=entity['start'], end=entity['end'])
-
-    # Add edges based on logical relationships
-    for i, entity in enumerate(entities):
-        for j, other in enumerate(entities):
-            if i != j and are_related(entity, other):
-                relation_description = f"{entity['text']} and {other['text']} are related due to their type and proximity."
-                G.add_edge(entity['text'], other['text'], relation=relation_description)
-
+        G.add_node(entity['text'], type=entity['label'])
+    # Add edges based on some condition here
     return G
 
+def save_data(data, filename):
+    """ Save data to a JSON file. """
+    with open(filename, 'w', encoding='utf-8') as file:
+        json.dump(data, file, indent=4)
+
+def visualize_graph(G):
+    import matplotlib.pyplot as plt
+    pos = nx.spring_layout(G)
+    nx.draw(G, pos, with_labels=True, node_color='skyblue')
+    plt.show()
+
+# Example of using these functions
+if __name__ == "__main__":
+    # Quick test of the functions
+    title = "Apollo 11"
+    text = fetch_wikipedia_page(title)
+    entities = extract_entities_with_transformer(text)
+    G = build_initial_graph(entities)
+    visualize_graph(G)
+    save_data(entities, 'entities.json')
