@@ -40,13 +40,28 @@ def extract_entities_with_transformer(text):
     entities = ner_pipeline(text)
     return [{'text': entity['word'], 'type': entity['entity_group'], 'start': entity['start'], 'end': entity['end'], 'date': extract_year(entity['word'])} for entity in entities]
 
+def are_related(entity1, entity2):
+    """Determines if two entities should be connected in the graph."""
+    # Example condition: entities are of the same type and appear within 100 characters of each other in the text
+    if entity1['type'] == entity2['type'] and abs(entity1['start'] - entity2['start']) < 100:
+        return True
+    return False
+
+
 def build_initial_graph(entities):
-    """ Construct a graph from extracted entities, connecting nodes based on shared attributes or defined relationships. """
+    """Construct a graph from extracted entities, connecting nodes based on shared attributes or defined relationships."""
     G = nx.Graph()
     for entity in entities:
+        # You might adjust the handling of 'date' to use 'year' or other modifications as needed
         year = extract_year(entity.get('date', ''))
         G.add_node(entity['text'], type=entity['type'], year=year, start=entity['start'], end=entity['end'])
-        for other in entities:
-            if entity['text'] != other['text'] and entity['type'] == other['type']:
-                G.add_edge(entity['text'], other['text'], relation=f"Shared type: {entity['type']}")
+
+    # Add edges based on logical relationships
+    for i, entity in enumerate(entities):
+        for j, other in enumerate(entities):
+            if i != j and are_related(entity, other):
+                relation_description = f"{entity['text']} and {other['text']} are related due to their type and proximity."
+                G.add_edge(entity['text'], other['text'], relation=relation_description)
+
     return G
+

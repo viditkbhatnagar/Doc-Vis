@@ -2,19 +2,18 @@ import plotly.graph_objects as go
 import networkx as nx
 
 def visualize_graph(G):
-    pos = nx.spring_layout(G)  # Positions nodes using a layout
+    pos = nx.spring_layout(G)
 
-    # Initialize x and y coordinates for edges as empty lists
     edge_x = []
     edge_y = []
     for edge in G.edges():
         x0, y0 = pos[edge[0]]
         x1, y1 = pos[edge[1]]
-        edge_x.extend([x0, x1, None])  # Use extend to add to list
+        edge_x.extend([x0, x1, None])
         edge_y.extend([y0, y1, None])
 
     edge_trace = go.Scatter(
-        x=edge_x,  # Provide full list here
+        x=edge_x, 
         y=edge_y,
         line=dict(width=2, color='grey'),
         hoverinfo='none',
@@ -28,14 +27,15 @@ def visualize_graph(G):
         x, y = pos[node]
         node_x.append(x)
         node_y.append(y)
-        # Add detailed info for hover text
-        node_info.append(f"{node}<br>Date: {G.nodes[node].get('date', 'N/A')}<br>Type: {G.nodes[node]['type']}")
+        relations = [G.edges[node, nbr]['relation'] for nbr in G.neighbors(node)]  # Collect all relations for the node
+        node_info.append(f"{node}<br>Date: {G.nodes[node].get('year', 'N/A')}<br>Type: {G.nodes[node]['type']}<br>Relations: {'; '.join([G.edges[node, nbr]['relation'] for nbr in G.neighbors(node)])}")
+
 
     node_trace = go.Scatter(
         x=node_x,
         y=node_y,
         mode='markers+text',
-        text=[node for node in G.nodes()],  # Node labels
+        text=[node for node in G.nodes()],
         hoverinfo='text',
         hovertext=node_info,
         marker=dict(
@@ -49,7 +49,7 @@ def visualize_graph(G):
 
     fig = go.Figure(data=[edge_trace, node_trace],
                     layout=go.Layout(
-                        title='Network Graph with Dates and Types',
+                        title='Network Graph with Dates, Types, and Relations',
                         showlegend=False,
                         hovermode='closest',
                         margin=dict(b=20,l=5,r=5,t=40),
