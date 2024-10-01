@@ -1,0 +1,284 @@
+[
+    {
+        "text": "Apollo 11",
+        "type": "MISC",
+        "start": 0,
+        "end": 9
+    },
+    {
+        "text": "United States",
+        "type": "LOC",
+        "start": 45,
+        "end": 58
+    },
+    {
+        "text": "Moon",
+        "type": "LOC",
+        "start": 152,
+        "end": 156
+    },
+    {
+        "text": "Neil Armstrong",
+        "type": "PER",
+        "start": 168,
+        "end": 182
+    },
+    {
+        "text": "Luna",
+        "type": "MISC",
+        "start": 187,
+        "end": 191
+    },
+    {
+        "text": "Mo",
+        "type": "MISC",
+        "start": 193,
+        "end": 195
+    },
+    {
+        "text": "Buzz Aldrin",
+        "type": "PER",
+        "start": 206,
+        "end": 217
+    },
+    {
+        "text": "Apollo Lunar Module Eagle",
+        "type": "MISC",
+        "start": 229,
+        "end": 254
+    },
+    {
+        "text": "Armstrong",
+        "type": "PER",
+        "start": 291,
+        "end": 300
+    },
+    {
+        "text": "Moon",
+        "type": "LOC",
+        "start": 342,
+        "end": 346
+    },
+    {
+        "text": "Aldrin",
+        "type": "PER",
+        "start": 414,
+        "end": 420
+    },
+    {
+        "text": "Tranquility Base",
+        "type": "LOC",
+        "start": 538,
+        "end": 554
+    },
+    {
+        "text": "Armstrong",
+        "type": "PER",
+        "start": 569,
+        "end": 578
+    },
+    {
+        "text": "Aldrin",
+        "type": "PER",
+        "start": 583,
+        "end": 589
+    },
+    {
+        "text": "Earth",
+        "type": "LOC",
+        "start": 657,
+        "end": 662
+    },
+    {
+        "text": "Michael Collins",
+        "type": "PER",
+        "start": 672,
+        "end": 687
+    },
+    {
+        "text": "Module Columbia",
+        "type": "MISC",
+        "start": 705,
+        "end": 720
+    },
+    {
+        "text": "Moon",
+        "type": "LOC",
+        "start": 753,
+        "end": 757
+    },
+    {
+        "text": "Columbia",
+        "type": "ORG",
+        "start": 823,
+        "end": 831
+    },
+    {
+        "text": "Apollo 11",
+        "type": "MISC",
+        "start": 833,
+        "end": 842
+    },
+    {
+        "text": "Saturn V",
+        "type": "MISC",
+        "start": 861,
+        "end": 869
+    },
+    {
+        "text": "Kennedy Space Center",
+        "type": "LOC",
+        "start": 882,
+        "end": 902
+    },
+    {
+        "text": "Merritt Island",
+        "type": "LOC",
+        "start": 906,
+        "end": 920
+    },
+    {
+        "text": "Florida",
+        "type": "LOC",
+        "start": 922,
+        "end": 929
+    },
+    {
+        "text": "NASA",
+        "type": "ORG",
+        "start": 995,
+        "end": 999
+    },
+    {
+        "text": "Apollo",
+        "type": "MISC",
+        "start": 1002,
+        "end": 1008
+    },
+    {
+        "text": "Apollo",
+        "type": "MISC",
+        "start": 1022,
+        "end": 1028
+    },
+    {
+        "text": "C",
+        "type": "MISC",
+        "start": 1075,
+        "end": 1076
+    },
+    {
+        "text": "Earth",
+        "type": "LOC",
+        "start": 1149,
+        "end": 1154
+    },
+    {
+        "text": "Moon",
+        "type": "LOC",
+        "start": 1347,
+        "end": 1351
+    },
+    {
+        "text": "Moon",
+        "type": "LOC",
+        "start": 1443,
+        "end": 1447
+    },
+    {
+        "text": "Saturn V",
+        "type": "MISC",
+        "start": 1455,
+        "end": 1463
+    },
+    {
+        "text": "Armstrong",
+        "type": "PER",
+        "start": 1587,
+        "end": 1596
+    },
+    {
+        "text": "Aldrin",
+        "type": "PER",
+        "start": 1601,
+        "end": 1607
+    },
+    {
+        "text": "Eagle",
+        "type": "MISC",
+        "start": 1624,
+        "end": 1629
+    },
+    {
+        "text": "Sea of Tranquility",
+        "type": "LOC",
+        "start": 1648,
+        "end": 1666
+    },
+    {
+        "text": "Eagle",
+        "type": "MISC",
+        "start": 1699,
+        "end": 1704
+    },
+    {
+        "text": "Collins",
+        "type": "PER",
+        "start": 1766,
+        "end": 1773
+    },
+    {
+        "text": "Eagle",
+        "type": "MISC",
+        "start": 1813,
+        "end": 1818
+    },
+    {
+        "text": "Columbia",
+        "type": "MISC",
+        "start": 1870,
+        "end": 1878
+    },
+    {
+        "text": "Earth",
+        "type": "LOC",
+        "start": 1944,
+        "end": 1949
+    },
+    {
+        "text": "Earth",
+        "type": "LOC",
+        "start": 1968,
+        "end": 1973
+    },
+    {
+        "text": "Pacific Ocean",
+        "type": "LOC",
+        "start": 1999,
+        "end": 2012
+    },
+    {
+        "text": "Armstrong",
+        "type": "PER",
+        "start": 2061,
+        "end": 2070
+    },
+    {
+        "text": "Apollo",
+        "type": "MISC",
+        "start": 2241,
+        "end": 2247
+    },
+    {
+        "text": "U",
+        "type": "LOC",
+        "start": 2270,
+        "end": 2271
+    },
+    {
+        "text": "S",
+        "type": "MISC",
+        "start": 2272,
+        "end": 2273
+    }
+]

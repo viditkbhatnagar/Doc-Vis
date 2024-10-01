@@ -1,0 +1,415 @@
+[
+    {
+        "text": "Abu ' l - Fath Jalal - ud",
+        "type": "PER",
+        "start": 0,
+        "end": 19,
+        "date": "No year available"
+    },
+    {
+        "text": "din Muhammad Akbar",
+        "type": "PER",
+        "start": 20,
+        "end": 38,
+        "date": "No year available"
+    },
+    {
+        "text": "Akbar the Great",
+        "type": "PER",
+        "start": 119,
+        "end": 134,
+        "date": "No year available"
+    },
+    {
+        "text": "Akbar I",
+        "type": "PER",
+        "start": 148,
+        "end": 155,
+        "date": "No year available"
+    },
+    {
+        "text": "Persian",
+        "type": "MISC",
+        "start": 157,
+        "end": 164,
+        "date": "No year available"
+    },
+    {
+        "text": "ak",
+        "type": "PER",
+        "start": 181,
+        "end": 183,
+        "date": "No year available"
+    },
+    {
+        "text": "Mughal",
+        "type": "MISC",
+        "start": 205,
+        "end": 211,
+        "date": "No year available"
+    },
+    {
+        "text": "Akbar",
+        "type": "PER",
+        "start": 252,
+        "end": 257,
+        "date": "No year available"
+    },
+    {
+        "text": "Humayun",
+        "type": "PER",
+        "start": 280,
+        "end": 287,
+        "date": "No year available"
+    },
+    {
+        "text": "Bairam Khan",
+        "type": "PER",
+        "start": 305,
+        "end": 316,
+        "date": "No year available"
+    },
+    {
+        "text": "Mughal",
+        "type": "MISC",
+        "start": 370,
+        "end": 376,
+        "date": "No year available"
+    },
+    {
+        "text": "Indian",
+        "type": "MISC",
+        "start": 392,
+        "end": 398,
+        "date": "No year available"
+    },
+    {
+        "text": "##continent",
+        "type": "LOC",
+        "start": 402,
+        "end": 411,
+        "date": "No year available"
+    },
+    {
+        "text": "Indian",
+        "type": "MISC",
+        "start": 472,
+        "end": 478,
+        "date": "No year available"
+    },
+    {
+        "text": "Hind\u016bst\u0101n",
+        "type": "LOC",
+        "start": 550,
+        "end": 559,
+        "date": "No year available"
+    },
+    {
+        "text": "India",
+        "type": "LOC",
+        "start": 563,
+        "end": 568,
+        "date": "No year available"
+    },
+    {
+        "text": "Akbar",
+        "type": "PER",
+        "start": 577,
+        "end": 582,
+        "date": "No year available"
+    },
+    {
+        "text": "Mughal Empire",
+        "type": "MISC",
+        "start": 606,
+        "end": 619,
+        "date": "No year available"
+    },
+    {
+        "text": "Indian",
+        "type": "MISC",
+        "start": 643,
+        "end": 649,
+        "date": "No year available"
+    },
+    {
+        "text": "##continent",
+        "type": "LOC",
+        "start": 653,
+        "end": 662,
+        "date": "No year available"
+    },
+    {
+        "text": "Mughal",
+        "type": "MISC",
+        "start": 671,
+        "end": 677,
+        "date": "No year available"
+    },
+    {
+        "text": "Mughal",
+        "type": "MISC",
+        "start": 751,
+        "end": 757,
+        "date": "No year available"
+    },
+    {
+        "text": "Akbar",
+        "type": "PER",
+        "start": 765,
+        "end": 770,
+        "date": "No year available"
+    },
+    {
+        "text": "non",
+        "type": "MISC",
+        "start": 1036,
+        "end": 1039,
+        "date": "No year available"
+    },
+    {
+        "text": "Muslim",
+        "type": "MISC",
+        "start": 1040,
+        "end": 1046,
+        "date": "No year available"
+    },
+    {
+        "text": "Akbar",
+        "type": "PER",
+        "start": 1156,
+        "end": 1161,
+        "date": "No year available"
+    },
+    {
+        "text": "Mughal",
+        "type": "MISC",
+        "start": 1163,
+        "end": 1169,
+        "date": "No year available"
+    },
+    {
+        "text": "India",
+        "type": "LOC",
+        "start": 1170,
+        "end": 1175,
+        "date": "No year available"
+    },
+    {
+        "text": "Indo - Persian",
+        "type": "MISC",
+        "start": 1309,
+        "end": 1321,
+        "date": "No year available"
+    },
+    {
+        "text": "Akbar",
+        "type": "PER",
+        "start": 1331,
+        "end": 1336,
+        "date": "No year available"
+    },
+    {
+        "text": "Delhi",
+        "type": "LOC",
+        "start": 1349,
+        "end": 1354,
+        "date": "No year available"
+    },
+    {
+        "text": "Agra",
+        "type": "LOC",
+        "start": 1356,
+        "end": 1360,
+        "date": "No year available"
+    },
+    {
+        "text": "Fatehpur Sikri",
+        "type": "LOC",
+        "start": 1366,
+        "end": 1380,
+        "date": "No year available"
+    },
+    {
+        "text": "Timurid",
+        "type": "MISC",
+        "start": 1513,
+        "end": 1520,
+        "date": "No year available"
+    },
+    {
+        "text": "Perso - Islamic",
+        "type": "MISC",
+        "start": 1525,
+        "end": 1538,
+        "date": "No year available"
+    },
+    {
+        "text": "Indian",
+        "type": "MISC",
+        "start": 1588,
+        "end": 1594,
+        "date": "No year available"
+    },
+    {
+        "text": "Mughal",
+        "type": "MISC",
+        "start": 1629,
+        "end": 1635,
+        "date": "No year available"
+    },
+    {
+        "text": "Islam",
+        "type": "MISC",
+        "start": 1707,
+        "end": 1712,
+        "date": "No year available"
+    },
+    {
+        "text": "Akbar",
+        "type": "PER",
+        "start": 1782,
+        "end": 1787,
+        "date": "No year available"
+    },
+    {
+        "text": "Il",
+        "type": "PER",
+        "start": 1806,
+        "end": 1808,
+        "date": "No year available"
+    },
+    {
+        "text": "##ahi",
+        "type": "MISC",
+        "start": 1808,
+        "end": 1811,
+        "date": "No year available"
+    },
+    {
+        "text": "Islam",
+        "type": "MISC",
+        "start": 1851,
+        "end": 1856,
+        "date": "No year available"
+    },
+    {
+        "text": "Hinduism",
+        "type": "MISC",
+        "start": 1861,
+        "end": 1869,
+        "date": "No year available"
+    },
+    {
+        "text": "Z",
+        "type": "LOC",
+        "start": 1893,
+        "end": 1894,
+        "date": "No year available"
+    },
+    {
+        "text": "##rian",
+        "type": "MISC",
+        "start": 1900,
+        "end": 1904,
+        "date": "No year available"
+    },
+    {
+        "text": "Christianity",
+        "type": "MISC",
+        "start": 1912,
+        "end": 1924,
+        "date": "No year available"
+    },
+    {
+        "text": "Akbar",
+        "type": "PER",
+        "start": 1926,
+        "end": 1931,
+        "date": "No year available"
+    },
+    {
+        "text": "Sal",
+        "type": "MISC",
+        "start": 1976,
+        "end": 1979,
+        "date": "No year available"
+    },
+    {
+        "text": "Mughal",
+        "type": "MISC",
+        "start": 2027,
+        "end": 2033,
+        "date": "No year available"
+    },
+    {
+        "text": "Hu",
+        "type": "LOC",
+        "start": 2042,
+        "end": 2044,
+        "date": "No year available"
+    },
+    {
+        "text": "Chausa",
+        "type": "MISC",
+        "start": 2066,
+        "end": 2072,
+        "date": "No year available"
+    },
+    {
+        "text": "Ka",
+        "type": "MISC",
+        "start": 2084,
+        "end": 2086,
+        "date": "No year available"
+    },
+    {
+        "text": "She",
+        "type": "MISC",
+        "start": 2116,
+        "end": 2119,
+        "date": "No year available"
+    },
+    {
+        "text": "Sur",
+        "type": "PER",
+        "start": 2126,
+        "end": 2129,
+        "date": "No year available"
+    },
+    {
+        "text": "##i",
+        "type": "MISC",
+        "start": 2129,
+        "end": 2130,
+        "date": "No year available"
+    },
+    {
+        "text": "Hu",
+        "type": "LOC",
+        "start": 2132,
+        "end": 2134,
+        "date": "No year available"
+    },
+    {
+        "text": "Sindh",
+        "type": "LOC",
+        "start": 2168,
+        "end": 2173,
+        "date": "No year available"
+    },
+    {
+        "text": "Ham",
+        "type": "LOC",
+        "start": 2217,
+        "end": 2220,
+        "date": "No year available"
+    },
+    {
+        "text": "##ida Ban",
+        "type": "MISC",
+        "start": 2220,
+        "end": 2227,
+        "date": "No year available"
+    }
+]

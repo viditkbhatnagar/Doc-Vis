@@ -1,60 +1,52 @@
+import wikipediaapi
+import datetime
+import re
 import json
+from transformers import pipeline
 import networkx as nx
-from nltk.tokenize import word_tokenize
-from nltk.corpus import stopwords
-from gensim import corpora, models
-import nltk
 
-nltk.download('punkt')
-nltk.download('stopwords')
-
-def process_document(text):
-    # Tokenize and remove stopwords
-    stop_words = set(stopwords.words('english'))
-    tokens = word_tokenize(text.lower())
-    processed_tokens = [token for token in tokens if token.isalnum() and token not in stop_words]
-    return " ".join(processed_tokens)
-
-def extract_entities(result):
+def extract_year(date_str):
+    """ Extracts the year from a date string. """
+    if not date_str:
+        return 'No year available'
     try:
-        # Try to parse the entire result as JSON
-        extracted_data = json.loads(result)
-        if isinstance(extracted_data, list):
-            return extracted_data
-        else:
-            return [extracted_data]
-    except json.JSONDecodeError:
-        # If parsing fails, try to extract individual JSON objects
-        extracted_data = []
-        for line in result.split('\n'):
-            try:
-                obj = json.loads(line.strip())
-                extracted_data.append(obj)
-            except json.JSONDecodeError:
-                continue
-        
-        if not extracted_data:
-            print("Error parsing the extracted data.")
-        
-        return extracted_data
+        date = datetime.datetime.strptime(date_str, "%Y-%m-%d")
+        return str(date.year)
+    except ValueError:
+        # Try to extract just the year if the full date isn't present
+        match = re.search(r'\b(\d{4})\b', date_str)
+        if match:
+            return match.group(1)
+        return 'No year available'
 
-def build_knowledge_graph(extracted_data):
+def fetch_wikipedia_page(title):
+    """ Fetch the content of a Wikipedia page using a specified user agent. """
+    wiki = wikipediaapi.Wikipedia(language='en', user_agent='docvis/1.0 (bhatnagar007vidit@gmail.com)')
+    page = wiki.page(title)
+    if page.exists():
+        return page.text
+    else:
+        print("Page not found.")
+        return None
+
+def save_data(data, filename):
+    """ Save extracted data to a JSON file. """
+    with open(filename, 'w', encoding='utf-8') as f:
+        json.dump(data, f, indent=4)
+
+def extract_entities_with_transformer(text):
+    """ Extract entities from text using a transformer-based NER model. """
+    ner_pipeline = pipeline("ner", model="dbmdz/bert-large-cased-finetuned-conll03-english", aggregation_strategy="simple")
+    entities = ner_pipeline(text)
+    return [{'text': entity['word'], 'type': entity['entity_group'], 'start': entity['start'], 'end': entity['end'], 'date': extract_year(entity['word'])} for entity in entities]
+
+def build_initial_graph(entities):
+    """ Construct a graph from extracted entities, connecting nodes based on shared attributes or defined relationships. """
     G = nx.Graph()
-    for item in extracted_data:
-        G.add_node(item['person'], type='person')
-        G.add_node(item['event'], type='event')
-        G.add_edge(item['person'], item['event'], date=item['date'])
+    for entity in entities:
+        year = extract_year(entity.get('date', ''))
+        G.add_node(entity['text'], type=entity['type'], year=year, start=entity['start'], end=entity['end'])
+        for other in entities:
+            if entity['text'] != other['text'] and entity['type'] == other['type']:
+                G.add_edge(entity['text'], other['text'], relation=f"Shared type: {entity['type']}")
     return G
-
-def extract_topics(text, num_topics=5):
-    tokens = word_tokenize(text.lower())
-    stop_words = set(stopwords.words('english'))
-    processed_tokens = [token for token in tokens if token.isalnum() and token not in stop_words]
-
-    dictionary = corpora.Dictionary([processed_tokens])
-    corpus = [dictionary.doc2bow(processed_tokens)]
-
-    lda_model = models.LdaModel(corpus=corpus, id2word=dictionary, num_topics=num_topics)
-    
-    topics = lda_model.print_topics(num_words=5)
-    return topics

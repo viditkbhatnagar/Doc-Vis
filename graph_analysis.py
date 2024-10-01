@@ -4,26 +4,21 @@ import networkx as nx
 def visualize_graph(G):
     pos = nx.spring_layout(G)  # Positions nodes using a layout
 
-    # Initialize x and y coordinates for edges as empty lists
-    edge_x = []
-    edge_y = []
+    edge_x, edge_y = [], []
     for edge in G.edges():
         x0, y0 = pos[edge[0]]
         x1, y1 = pos[edge[1]]
-        edge_x.extend([x0, x1, None])  # Use extend to add to list
+        edge_x.extend([x0, x1, None])
         edge_y.extend([y0, y1, None])
 
     edge_trace = go.Scatter(
-        x=edge_x,  # Provide full list here
-        y=edge_y,
+        x=edge_x, y=edge_y,
         line=dict(width=2, color='grey'),
         hoverinfo='none',
         mode='lines'
     )
 
-    node_x = []
-    node_y = []
-    node_info = []
+    node_x, node_y, node_info = [], [], []
     for node in G.nodes():
         x, y = pos[node]
         node_x.append(x)
@@ -32,10 +27,9 @@ def visualize_graph(G):
         node_info.append(f"{node}<br>Date: {G.nodes[node].get('date', 'N/A')}<br>Type: {G.nodes[node]['type']}")
 
     node_trace = go.Scatter(
-        x=node_x,
-        y=node_y,
+        x=node_x, y=node_y,
         mode='markers+text',
-        text=[node for node in G.nodes()],  # Node labels
+        text=[node for node in G.nodes()],  # Or any other node labels you prefer
         hoverinfo='text',
         hovertext=node_info,
         marker=dict(

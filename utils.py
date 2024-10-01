@@ -1,96 +1,38 @@
-import wikipediaapi
 import json
-from llm_pipeline import extract_with_llm
-import networkx as nx
-from pydantic import BaseModel, Field
-from typing import List  # Add this import statement
+import numpy as np
 
-# Ground truth dataset for accuracy calculation
-ground_truth = [
-    {"person": "John Doe", "event": "Birthday Party", "date": "2022-01-01"},
-    {"person": "Jane Smith", "event": "Graduation", "date": "2021-05-20"},
-    # Add more entries as needed
-]
+def calculate_accuracy(relevant_data, whole_data):
+    """
+    Calculates the accuracy of the relevant extracted data against the whole data.
+    Uses JSON serialization to handle dictionary comparison.
 
-class ExtractedInfo(BaseModel):
-    person: str = Field(description="Name of the person")
-    event: str = Field(description="Description of the event")
-    date: str = Field(description="Date of the event")
+    :param relevant_data: List of dictionaries containing the relevant extracted entities.
+    :param whole_data: List of dictionaries containing all extracted entities.
+    :return: Accuracy percentage as a float.
+    """
+    # Convert list of dictionaries to a set of serialized strings for accurate comparison
+    whole_data_set = set(json.dumps(d, sort_keys=True) for d in whole_data)
+    correct_identifications = sum(1 for entity in relevant_data if json.dumps(entity, sort_keys=True) in whole_data_set)
 
-class ExtractedData(BaseModel):
-    extracted_info: List[ExtractedInfo] = Field(description="List of extracted information")
-
-    def to_dict(self):
-        """Convert the extracted data to a dictionary for JSON serialization."""
-        return {
-            "extracted_info": [info.dict() for info in self.extracted_info]
-        }
-
-def fetch_wikipedia_page(title):
-    headers = {'User-Agent': "dockvis/1.0 (contact: bhatnagar007vidit@gmail.com)"}
-    wiki = wikipediaapi.Wikipedia('en', headers=headers)
-    page = wiki.page(title)
-    
-    if page.exists():
-        return page.text
-    else:
-        print("Page not found.")
-        return None
-
-def extract_relevant_data(text, use_pipeline=True):
-    json_file_name = f"whole_extracted_text.json"
-    with open(json_file_name, 'w') as json_file:
-        json.dump(text, json_file, indent=4)
-    print(f"\033[93mExtracted data saved to {json_file_name}\033[0m")
-    
-    if use_pipeline:
-        # Use pipeline-based extraction
-        extracted_info = extract_with_llm(text)
-    else:
-        # Fallback to basic extraction if needed
-        extracted_info = [ExtractedInfo(person='Unknown', event='Unknown event', date='Unknown date')]
-
-    return extracted_info
-
-def calculate_accuracy(extracted_data, ground_truth):
-    """Calculate accuracy of the extracted data against ground truth."""
-    extracted_set = set((item.person, item.event, item.date) for item in extracted_data)
-    ground_truth_set = set((item['person'], item['event'], item['date']) for item in ground_truth)
-    
-    # Calculate true positives
-    true_positives = extracted_set.intersection(ground_truth_set)
-    
-    # Calculate accuracy
-    accuracy = len(true_positives) / len(ground_truth_set) * 100 if ground_truth_set else 0
+    total_relevant = len(relevant_data)
+    accuracy = (correct_identifications / total_relevant * 100) if total_relevant else 0
     return accuracy
 
-def build_knowledge_graph(extracted_data):
-    """Build a knowledge graph from the extracted data."""
-    G = nx.Graph()
-    for item in extracted_data:
-        G.add_node(item.person, type='person')  # Use dot notation to access attributes
-        G.add_node(item.event, type='event')
-        G.add_node(item.date, type='date')  # Added date as a node if necessary
-        G.add_edge(item.person, item.event, date=item.date)  # Use dot notation
-    return G
+def save_data(data, filename):
+    """
+    Saves data to a JSON file, ensuring all data types are serializable.
 
-def main():
-    title = input("Enter the Wikipedia title: ")
-    document = fetch_wikipedia_page(title)
-    
-    if document:
-        extracted_data = extract_relevant_data(document)
-        
-        # Ensure extracted_data is not empty before calculating accuracy
-        if extracted_data:
-            # Calculate and print accuracy
-            accuracy = calculate_accuracy(extracted_data, ground_truth)
-            print(f"Extraction Accuracy: {accuracy:.2f}%")
-            print("Relevant data extracted:", extracted_data)
-        else:
-            print("No relevant data extracted.")
-    else:
-        print("Failed to fetch document.")
+    :param data: Data to be serialized and saved.
+    :param filename: Path to the file where data should be saved.
+    """
+    def convert(o):
+        if isinstance(o, np.integer):
+            return int(o)
+        elif isinstance(o, np.floating):
+            return float(o)
+        elif isinstance(o, np.ndarray):
+            return o.tolist()
+        raise TypeError("Object of type {o.__class__.__name__} is not JSON serializable")
 
-if __name__ == "__main__":
-    main()
+    with open(filename, 'w') as f:
+        json.dump(data, f, indent=4, default=convert)
